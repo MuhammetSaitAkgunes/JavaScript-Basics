@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const connectDatabase = require("./helpers/database/connectDatabase");
+const customErrorHandler = require("./middleware/errors/customErrorHandler");
 
 // "/api" geldiğinde gel bu routers içindeki indexe bak. Daha modüler, daha kullanışlı bir yapı.
 const routers = require("./routers/index");
@@ -20,6 +21,8 @@ const PORT = process.env.PORT;
 // routers middleware. sana /api geldiğinde routersa gönder.
 app.use("/api",routers);
 
+// Error handler
+app.use(customErrorHandler);
 
 app.listen(PORT, () => {
     console.log(`App started on : ${PORT} : ${process.env.NODE_ENV}`);
