@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const CustomError = require("../helpers/error/CustomError");
 const asyncErrorWrapper = require("express-async-handler");
+const {sendJwtToClient} = require("../helpers/authorization/tokenHelpers");
 
 const register = asyncErrorWrapper(async (req, res, next) => {
     // POST DATA
@@ -13,18 +14,18 @@ const register = asyncErrorWrapper(async (req, res, next) => {
         password,
         role
     });
-    res.status(200).json({
-        succes: true,
-        data: user
-    });
-
+    sendJwtToClient(user,res);
 });
 
-const errorTest = (req, res, next) => {
-    return next(new TypeError("Syntax Error"));
+const tokentest = (req, res, next) => {
+    
+    res.json({
+        succes: true,
+        message: "welcome"
+    });
 }
 
 module.exports = {
     register,
-    errorTest
+    tokentest
 }
