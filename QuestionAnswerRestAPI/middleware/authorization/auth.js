@@ -26,7 +26,7 @@ const getAccessToRoute = (req, res, next) => {
         }
         next();
     });
-    
+     
 };
 
 module.exports = {
