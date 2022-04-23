@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const connectDatabase = require("./helpers/database/connectDatabase");
 const customErrorHandler = require("./middleware/errors/customErrorHandler");
+const path = require("path");
 
 // "/api" geldiğinde gel bu routers içindeki indexe bak. Daha modüler, daha kullanışlı bir yapı.
 const routers = require("./routers/index");
@@ -26,6 +27,10 @@ app.use("/api",routers);
 
 // Error handler
 app.use(customErrorHandler);
+
+// Static Files
+app.use(express.static(path.join(__dirname,"public")));
+
 
 app.listen(PORT, () => {
     console.log(`App started on : ${PORT} : ${process.env.NODE_ENV}`);
